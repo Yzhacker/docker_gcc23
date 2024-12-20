@@ -1,5 +1,14 @@
 
-Aqui estão os comandos para criar um container Docker com Ubuntu 16.04 LTS e glibc 2.23, para que você possa usá-lo para compilar no ambiente de CTF. Siga esses passos no seu Kali Linux:
+
+
+Maquina alvo = Linux ubuntu 3.2.0-23-generic #36-Ubuntu SMP Tue Apr 10 20:39:51 UTC 2012 x86_64 x86_64 x86_64 GNU/Linux
+
+sudo docker start -i docker_gcc23
+
+# gcc --version
+gcc (Ubuntu 5.4.0-6ubuntu1~16.04.12) 5.4.0 20160609
+
+Para criar um container Docker com Ubuntu 16.04 LTS e glibc 2.23.
 
 1. Instalar o Docker (se não estiver instalado)
 bash
@@ -76,7 +85,30 @@ sudo docker exec -it docker_gcc23 bash -c "cp /home/kali/ar.c /root/ar.c"
 Agora o arquivo ar.c estará no diretório /root dentro do seu container.
 
 
+no kali 
+
+docker cp /home/kali/33589.c docker_gcc23:/root/33589.c
+Successfully copied 5.12kB to docker_gcc23:/root/33589.c
+
+docker cp docker_gcc23:/root/33589 /home/kali/33589
+
+Successfully copied 15.4kB to /home/kali/33589
 
 
+no dockert
+
+
+sudo docker start -i docker_gcc23
+
+root@e4c8a938204a:/# gcc --version
+gcc (Ubuntu 5.4.0-6ubuntu1~16.04.12) 5.4.0 20160609
+Copyright (C) 2015 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+root@e4c8a938204a:/# gcc /root/33589.c -o /root/33589
+root@e4c8a938204a:/# docker cp docker_gcc23:/root/33589 /home/kali/33589
+bash: docker: command not found
+root@e4c8a938204a:/# 
 
 
