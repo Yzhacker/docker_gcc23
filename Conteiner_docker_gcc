@@ -49,6 +49,33 @@ gcc -o ar ar.c
 Agora você tem um ambiente Docker configurado com o Ubuntu 16.04 LTS e glibc 2.23 para compilar seus arquivos com a versão correta da glibc.
 
 
+Para transferir seu arquivo para o container Docker, você pode usar os seguintes métodos:
+
+1. Usando o comando docker cp (para copiar arquivos de fora para o container)
+Para copiar um arquivo do seu sistema local para o container, use o comando docker cp. Suponha que você tenha o arquivo ar.c em /home/kali/ar.c e queira movê-lo para o diretório /root dentro do container.
+
+bash
+Copy code
+sudo docker cp /home/kali/ar.c docker_gcc23:/root/ar.c
+Isso vai copiar o arquivo ar.c para a pasta /root no container docker_gcc23.
+
+2. Usando o Docker com montagem de volumes (para acessar arquivos diretamente)
+Você também pode montar um diretório do seu sistema local dentro do container, para que ele tenha acesso direto aos arquivos. Por exemplo, se você deseja compartilhar o diretório /home/kali/ctf_files com o diretório /root/ctf_files no container, execute:
+
+bash
+Copy code
+sudo docker run -it --name docker_gcc23 -v /home/kali/ctf_files:/root/ctf_files ubuntu:16.04
+Agora, dentro do container, você pode acessar os arquivos na pasta /root/ctf_files como se estivessem localmente no container. Quando você adicionar ou modificar arquivos em /home/kali/ctf_files, as mudanças estarão automaticamente refletidas dentro do container.
+
+3. Usando o docker exec para copiar durante o uso
+Se o container já estiver em execução, você pode usar o comando docker exec para mover arquivos. Por exemplo, para mover o arquivo ar.c para o diretório /root do container em execução:
+
+bash
+Copy code
+sudo docker exec -it docker_gcc23 bash -c "cp /home/kali/ar.c /root/ar.c"
+Agora o arquivo ar.c estará no diretório /root dentro do seu container.
+
+
 
 
 
