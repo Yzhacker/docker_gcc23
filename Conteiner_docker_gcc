@@ -1,0 +1,55 @@
+
+Aqui estão os comandos para criar um container Docker com Ubuntu 16.04 LTS e glibc 2.23, para que você possa usá-lo para compilar no ambiente de CTF. Siga esses passos no seu Kali Linux:
+
+1. Instalar o Docker (se não estiver instalado)
+bash
+Copy code
+sudo apt update
+sudo apt install docker.io
+2. Iniciar o serviço Docker
+bash
+Copy code
+sudo systemctl start docker
+sudo systemctl enable docker
+3. Baixar a imagem do Ubuntu 16.04 LTS
+bash
+Copy code
+sudo docker pull ubuntu:16.04
+4. Criar o container docker_gcc23 com Ubuntu 16.04 LTS
+bash
+Copy code
+sudo docker run -it --name docker_gcc23 ubuntu:16.04
+Isso vai abrir o terminal dentro do container.
+
+5. Instalar o GCC e outras dependências no container
+Dentro do container, execute os seguintes comandos:
+
+bash
+Copy code
+apt update
+apt install build-essential
+6. Sair do container
+bash
+Copy code
+exit
+7. Para usar o container no futuro
+Sempre que precisar compilar, você pode executar o container com o seguinte comando:
+
+bash
+Copy code
+sudo docker start -i docker_gcc23
+Isso vai iniciar o container e você estará no terminal do container com glibc 2.23.
+
+8. Compilar dentro do container
+Dentro do container, você pode usar o comando gcc normalmente para compilar seu código:
+
+bash
+Copy code
+gcc -o ar ar.c
+Agora você tem um ambiente Docker configurado com o Ubuntu 16.04 LTS e glibc 2.23 para compilar seus arquivos com a versão correta da glibc.
+
+
+
+
+
+
